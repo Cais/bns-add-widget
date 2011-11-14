@@ -67,6 +67,22 @@ if (version_compare($wp_version, "2.2", "<")) { /* for *_sidebar functions */
 load_plugin_textdomain( 'bns-aw' );
 // End: BNS Add Widget TextDomain
 
+/**
+ * Enqueue Plugin Scripts and Styles
+ *
+ * Adds plugin stylesheet and allows for custom stylesheet to be added by end-user.
+ *
+ * @package BNS_Add_Widget
+ * @since   0.4
+ */
+function BNSFC_Scripts_and_Styles() {
+        /** Enqueue Scripts */
+        /** Enqueue Style Sheets */
+        wp_enqueue_style( 'BNSAW-Style', plugin_dir_url( __FILE__ ) . '/bnsaw-style.css', array(), '0.4', 'screen' );
+        wp_enqueue_style( 'BNSAW-Custom-Style', plugin_dir_url( __FILE__ ) . '/bnsaw-custom-style.css', array(), '0.4', 'screen' );
+}
+add_action( 'wp_enqueue_scripts', 'BNSAW_Scripts_and_Styles' );
+
 /* Hook BNS Widget into 'init' */
 add_action( 'init', 'add_BNS_Add_Widget_Code' );
 function add_BNS_Add_Widget_Code() {
@@ -86,7 +102,6 @@ function add_BNS_Widget_to_Footer() {
         if ( dynamic_sidebar( 'bns-add-widget' ) ) : else :
             printf( __( '%1$sYou are using the %2$s plugin! Thank You!%3$s', 'bns-aw' ), '<span class="bnsaw-center">', '<a href="http://buynowshop.com/plugins/bns-add-widget/">BNS Add Widget</a>', '</span>' );
             ?>
-            <!-- <span align="center">You are using the <a href="http://buynowshop.com/plugins/bns-add-widget/">BNS Add Widget</a> plugin! Thank You!</span> -->
         <?php endif;
 }
 ?>

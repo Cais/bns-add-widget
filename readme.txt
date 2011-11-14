@@ -78,6 +78,7 @@ The plugin uses the register_sidebar() WordPress function; additional classes ar
 * confirmed compatible with WordPress 3.3
 * added phpDoc Style documentation
 * added i18n support
+* added `bnsaw-style.css` for plugin specific elements
 
 = 0.3 =
 * confirmed compatible with WordPress version 3.2-beta2-18055
