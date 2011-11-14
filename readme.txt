@@ -81,6 +81,7 @@ The plugin uses the register_sidebar() WordPress function; additional classes ar
 * added i18n support
 * added `bnsaw-style.css` for plugin specific elements
 * added `description` parameter to widget area definition
+* added additional style for widget area
 * updated required WordPress version to 2.7
 
 = 0.3 =

@@ -73,7 +73,7 @@ if ( version_compare( $wp_version, "2.7", "<" ) ) {
  * Note: Translation files are expected to be found in the plugin root folder / directory.
  * `bns-aw` is being used in place of `bns-add-widget`
  *
- * Last revised November 12, 2011
+ * Last revised November 14, 2011
  */
 load_plugin_textdomain( 'bns-aw' );
 // End: BNS Add Widget TextDomain
@@ -121,7 +121,7 @@ add_action( 'init', 'BNS_Add_Widget' );
 /**
  * BNS Add Widget Hook
  *
- * Provides the content for the `add_action` hook
+ * Provides default content for the `add_action` hook into `wp_footer`; also centers the widgets used in the area.
  *
  * @package BNS_Add_Widget
  * @since   0.1
@@ -129,10 +129,12 @@ add_action( 'init', 'BNS_Add_Widget' );
  *
  * Last revised November 14, 2011
  */
-function BNS_Add_Widget_Hook() {
-        if ( dynamic_sidebar( 'bns-add-widget' ) ) : else :
-            printf( __( '<div class="bnsaw-credit">You are using the %1$s plugin. Thank You!</div>', 'bns-aw' ), '<a href="http://buynowshop.com/plugins/bns-add-widget/">BNS Add Widget</a>' );
-        endif;
-}
+function BNS_Add_Widget_Hook() { ?>
+        <div class="bnsaw-credit">
+            <?php if ( dynamic_sidebar( 'bns-add-widget' ) ) : else :
+                printf( __( 'You are using the %1$s plugin. Thank You!', 'bns-aw' ), '<a href="http://buynowshop.com/plugins/bns-add-widget/">BNS Add Widget</a>' );
+            endif; ?>
+        </div>
+<?php }
 add_action('wp_footer', 'BNS_Add_Widget_Hook');
 ?>
