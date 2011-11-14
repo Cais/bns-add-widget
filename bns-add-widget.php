@@ -89,8 +89,8 @@ load_plugin_textdomain( 'bns-aw' );
 function BNSAW_Scripts_and_Styles() {
         /** Enqueue Scripts */
         /** Enqueue Style Sheets */
-        wp_enqueue_style( 'BNSAW-Style', plugin_dir_url( __FILE__ ) . '/bnsaw-style.css', array(), '0.4', 'screen' );
-        wp_enqueue_style( 'BNSAW-Custom-Style', plugin_dir_url( __FILE__ ) . '/bnsaw-custom-style.css', array(), '0.4', 'screen' );
+        wp_enqueue_style( 'BNSAW-Style', plugin_dir_url( __FILE__ ) . 'bnsaw-style.css', array(), '0.4', 'screen' );
+        wp_enqueue_style( 'BNSAW-Custom-Style', plugin_dir_url( __FILE__ ) . 'bnsaw-custom-style.css', array(), '0.4', 'screen' );
 }
 add_action( 'wp_enqueue_scripts', 'BNSAW_Scripts_and_Styles' );
 
