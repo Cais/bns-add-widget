@@ -2,7 +2,7 @@
 Contributors: cais
 Donate link: http://buynowshop.com
 Tags: widget, footer, admin
-Requires at least: 2.2
+Requires at least: 2.7
 Tested up to: 3.3
 Stable tag: 0.4
 
@@ -81,6 +81,7 @@ The plugin uses the register_sidebar() WordPress function; additional classes ar
 * added i18n support
 * added `bnsaw-style.css` for plugin specific elements
 * added `description` parameter to widget area definition
+* updated required WordPress version to 2.7
 
 = 0.3 =
 * confirmed compatible with WordPress version 3.2-beta2-18055

@@ -47,9 +47,19 @@ License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * Last revised November 14, 2011
  */
 
+/**
+ * Check installed WordPress version for compatibility
+ *
+ * @package     BNS_Add_Widget
+ * @since       0.1
+ * @version     0.4
+ * @internal    Version 2.7 being used in reference to the `load_plugin_textdomain`
+ *
+ * Last revised November 14, 2011.
+ */
 global $wp_version;
-$exit_message = 'BNS Add Widget requires WordPress version 2.2 or newer. <a href="http://codex.wordpress.org/Upgrading_WordPress">Please Update!</a>';
-if ( version_compare( $wp_version, "2.2", "<" ) ) { // for *_sidebar functions
+$exit_message = 'BNS Add Widget requires WordPress version 2.7 or newer. <a href="http://codex.wordpress.org/Upgrading_WordPress">Please Update!</a>';
+if ( version_compare( $wp_version, "2.7", "<" ) ) {
     exit ( $exit_message );
 }
 
@@ -84,9 +94,18 @@ function BNSAW_Scripts_and_Styles() {
 }
 add_action( 'wp_enqueue_scripts', 'BNSAW_Scripts_and_Styles' );
 
-/* Hook BNS Widget into 'init' */
-add_action( 'init', 'add_BNS_Add_Widget_Code' );
-function add_BNS_Add_Widget_Code() {
+/**
+ * BNS Add Widget
+ *
+ * The main section of code that sets the sidebar parameters to be used.
+ *
+ * @package BNS_Add_Widget
+ * @since   0.1
+ * @version 0.4
+ *
+ * Last revised November 14, 2011
+ */
+function BNS_Add_Widget() {
         register_sidebar( array(
                                'name'           => __( 'BNS Add Widget', 'bns-aw' ),
                                'id'             => 'bns-add-widget',
@@ -97,13 +116,23 @@ function add_BNS_Add_Widget_Code() {
                                'after_title'    => '</h2>',
                           ) );
 }
+add_action( 'init', 'BNS_Add_Widget' );
 
-/* Hook BNS Widget into wp_footer */
-add_action('wp_footer', 'add_BNS_Widget_to_Footer');
-function add_BNS_Widget_to_Footer() {
+/**
+ * BNS Add Widget Hook
+ *
+ * Provides the content for the `add_action` hook
+ *
+ * @package BNS_Add_Widget
+ * @since   0.1
+ * @version 0.4
+ *
+ * Last revised November 14, 2011
+ */
+function BNS_Add_Widget_Hook() {
         if ( dynamic_sidebar( 'bns-add-widget' ) ) : else :
             printf( __( '<div class="bnsaw-credit">You are using the %1$s plugin. Thank You!</div>', 'bns-aw' ), '<a href="http://buynowshop.com/plugins/bns-add-widget/">BNS Add Widget</a>' );
-            ?>
-        <?php endif;
+        endif;
 }
+add_action('wp_footer', 'BNS_Add_Widget_Hook');
 ?>
