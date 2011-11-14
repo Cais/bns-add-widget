@@ -83,8 +83,10 @@ function add_BNS_Add_Widget_Code() {
 /* Hook BNS Widget into wp_footer */
 add_action('wp_footer', 'add_BNS_Widget_to_Footer');
 function add_BNS_Widget_to_Footer() {
-        if ( dynamic_sidebar( 'bns-add-widget' ) ) : else : ?>
-            <span align="center">You are using the <a href="http://buynowshop.com/plugins/bns-add-widget/">BNS Add Widget</a> plugin! Thank You!</span>
+        if ( dynamic_sidebar( 'bns-add-widget' ) ) : else :
+            printf( __( '%1$sYou are using the %2$s plugin! Thank You!%3$s', 'bns-aw' ), '<span class="bnsaw-center">', '<a href="http://buynowshop.com/plugins/bns-add-widget/">BNS Add Widget</a>', '</span>' );
+            ?>
+            <!-- <span align="center">You are using the <a href="http://buynowshop.com/plugins/bns-add-widget/">BNS Add Widget</a> plugin! Thank You!</span> -->
         <?php endif;
 }
 ?>
