@@ -44,7 +44,7 @@ License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * The license for this software can also likely be found here:
  * http://www.gnu.org/licenses/gpl-2.0.html
  *
- * Last revised November 14, 2011
+ * Last revised November 15, 2011
  */
 
 /**
@@ -72,8 +72,6 @@ if ( version_compare( $wp_version, "2.7", "<" ) ) {
  *
  * Note: Translation files are expected to be found in the plugin root folder / directory.
  * `bns-aw` is being used in place of `bns-add-widget`
- *
- * Last revised November 14, 2011
  */
 load_plugin_textdomain( 'bns-aw' );
 // End: BNS Add Widget TextDomain
@@ -90,7 +88,9 @@ function BNSAW_Scripts_and_Styles() {
         /** Enqueue Scripts */
         /** Enqueue Style Sheets */
         wp_enqueue_style( 'BNSAW-Style', plugin_dir_url( __FILE__ ) . 'bnsaw-style.css', array(), '0.4', 'screen' );
-        wp_enqueue_style( 'BNSAW-Custom-Style', plugin_dir_url( __FILE__ ) . 'bnsaw-custom-style.css', array(), '0.4', 'screen' );
+        if ( is_readable( plugin_dir_path( __FILE__ ) . 'bnsaw-custom-style.css' ) ) { // Only enqueue if available
+            wp_enqueue_style( 'BNSAW-Custom-Style', plugin_dir_url( __FILE__ ) . 'bnsaw-custom-style.css', array(), '0.4', 'screen' );
+        }
 }
 add_action( 'wp_enqueue_scripts', 'BNSAW_Scripts_and_Styles' );
 
