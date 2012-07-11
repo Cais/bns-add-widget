@@ -3,9 +3,10 @@
 Plugin Name: BNS Add Widget
 Plugin URI: http://buynowshop.com/plugins/bns-add-widget
 Description: Add a widget area to the footer of any theme.
-Version: 0.4.1
+Version: 0.4.2
 Author: Edward Caissie
 Author URI: http://edwardcaissie.com/
+Textdomain: bns-aw
 License: GNU General Public License v2
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 */
@@ -20,7 +21,7 @@ License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * @link        http://buynowshop.com/plugins/bns-add-widget/
  * @link        https://github.com/Cais/bns-add-widget/
  * @link        http://wordpress.org/extend/plugins/bns-add-widget/
- * @version     0.4.1
+ * @version     0.4.2
  * @author      Edward Caissie <edward.caissie@gmail.com>
  * @copyright   Copyright (c) 2010-2012, Edward Caissie
  *
@@ -44,7 +45,8 @@ License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * The license for this software can also likely be found here:
  * http://www.gnu.org/licenses/gpl-2.0.html
  *
- * Last revised November 15, 2011
+ * @date    July 11, 2012
+ * Documentation updates
  */
 
 /**
@@ -52,6 +54,9 @@ License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  *
  * @package     BNS_Add_Widget
  * @since       0.1
+ *
+ * @uses        (global) $wp_version
+ *
  * @version     0.4
  * @internal    Version 2.7 being used in reference to the `load_plugin_textdomain`
  *
@@ -83,14 +88,17 @@ load_plugin_textdomain( 'bns-aw' );
  *
  * @package BNS_Add_Widget
  * @since   0.4
+ *
+ * @uses    wp_enqueue_style
+ * @uses    plugin_dir_url
  */
 function BNSAW_Scripts_and_Styles() {
-        /** Enqueue Scripts */
-        /** Enqueue Style Sheets */
-        wp_enqueue_style( 'BNSAW-Style', plugin_dir_url( __FILE__ ) . 'bnsaw-style.css', array(), '0.4', 'screen' );
-        if ( is_readable( plugin_dir_path( __FILE__ ) . 'bnsaw-custom-style.css' ) ) { // Only enqueue if available
-            wp_enqueue_style( 'BNSAW-Custom-Style', plugin_dir_url( __FILE__ ) . 'bnsaw-custom-style.css', array(), '0.4', 'screen' );
-        }
+    /** Enqueue Scripts */
+    /** Enqueue Style Sheets */
+    wp_enqueue_style( 'BNSAW-Style', plugin_dir_url( __FILE__ ) . 'bnsaw-style.css', array(), '0.4', 'screen' );
+    if ( is_readable( plugin_dir_path( __FILE__ ) . 'bnsaw-custom-style.css' ) ) { // Only enqueue if available
+        wp_enqueue_style( 'BNSAW-Custom-Style', plugin_dir_url( __FILE__ ) . 'bnsaw-custom-style.css', array(), '0.4', 'screen' );
+    }
 }
 add_action( 'wp_enqueue_scripts', 'BNSAW_Scripts_and_Styles' );
 
@@ -101,20 +109,23 @@ add_action( 'wp_enqueue_scripts', 'BNSAW_Scripts_and_Styles' );
  *
  * @package BNS_Add_Widget
  * @since   0.1
+ *
+ * @uses    register_sidebar
+ *
  * @version 0.4
  *
  * Last revised November 14, 2011
  */
 function BNS_Add_Widget() {
-        register_sidebar( array(
-                               'name'           => __( 'BNS Add Widget', 'bns-aw' ),
-                               'id'             => 'bns-add-widget',
-                               'description'    => __( 'This widget area will generally be found at the bottom of the page in the theme footer area.', 'bns-aw'),
-                               'before_widget'  => '<div class="bns-add-widget"><div id="%1$s" class="widget %2$s">',
-                               'after_widget'   => '</div><!-- #%1$s .widget .%2$s --></div><!-- .bns-add-widget -->',
-                               'before_title'   => '<h2 class="bns-add-widget-title">',
-                               'after_title'    => '</h2>',
-                          ) );
+    register_sidebar( array(
+        'name'           => __( 'BNS Add Widget', 'bns-aw' ),
+        'id'             => 'bns-add-widget',
+        'description'    => __( 'This widget area will generally be found at the bottom of the page in the theme footer area.', 'bns-aw'),
+        'before_widget'  => '<div class="bns-add-widget"><div id="%1$s" class="widget %2$s">',
+        'after_widget'   => '</div><!-- #%1$s .widget .%2$s --></div><!-- .bns-add-widget -->',
+        'before_title'   => '<h2 class="bns-add-widget-title">',
+        'after_title'    => '</h2>',
+    ) );
 }
 add_action( 'init', 'BNS_Add_Widget' );
 
@@ -125,6 +136,9 @@ add_action( 'init', 'BNS_Add_Widget' );
  *
  * @package BNS_Add_Widget
  * @since   0.1
+ *
+ * @uses    dynamic_sidebar
+ *
  * @version 0.4
  *
  * Last revised November 14, 2011
@@ -137,4 +151,3 @@ function BNS_Add_Widget_Hook() { ?>
         </div>
 <?php }
 add_action('wp_footer', 'BNS_Add_Widget_Hook');
-?>
