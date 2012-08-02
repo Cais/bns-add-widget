@@ -45,8 +45,10 @@ License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * The license for this software can also likely be found here:
  * http://www.gnu.org/licenses/gpl-2.0.html
  *
- * @date    July 11, 2012
+ * @date    August 2, 2012
  * Documentation updates
+ * Added License references in 'readme'
+ * Updated long description
  */
 
 /**
@@ -83,14 +85,14 @@ load_plugin_textdomain( 'bns-aw' );
 
 /**
  * Enqueue Plugin Scripts and Styles
- *
  * Adds plugin stylesheet and allows for custom stylesheet to be added by end-user.
  *
  * @package BNS_Add_Widget
  * @since   0.4
  *
- * @uses    wp_enqueue_style
+ * @uses    plugin_dir_path
  * @uses    plugin_dir_url
+ * @uses    wp_enqueue_style
  */
 function BNSAW_Scripts_and_Styles() {
     /** Enqueue Scripts */
@@ -104,7 +106,6 @@ add_action( 'wp_enqueue_scripts', 'BNSAW_Scripts_and_Styles' );
 
 /**
  * BNS Add Widget
- *
  * The main section of code that sets the sidebar parameters to be used.
  *
  * @package BNS_Add_Widget
@@ -131,13 +132,13 @@ add_action( 'init', 'BNS_Add_Widget' );
 
 /**
  * BNS Add Widget Hook
- *
- * Provides default content for the `add_action` hook into `wp_footer`; also centers the widgets used in the area.
+ * Provides default content for the `add_action` hook into `wp_footer`.
  *
  * @package BNS_Add_Widget
  * @since   0.1
  *
  * @uses    dynamic_sidebar
+ * @internal REQUIRES `wp_footer` action hook to be available
  *
  * @version 0.4
  *
