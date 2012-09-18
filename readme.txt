@@ -81,6 +81,7 @@ The plugin uses the register_sidebar() WordPress function; additional classes ar
 == Changelog ==
 = 0.5 =
 * Implemented OOP style coding methods
+* Documentation improvements
 
 = 0.4.3 =
 * Set stylesheet versions to dynamically match the plugin version
