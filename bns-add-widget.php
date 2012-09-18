@@ -51,20 +51,22 @@ License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
 class BNS_Add_Widget {
-    /** Constructor */
+    /**
+     * Constructor
+     * This is where the go-go juice is squeezed out of the code
+     */
     function __construct() {
         /**
          * Check installed WordPress version for compatibility
          *
-         * @package     BNS_Add_Widget
-         * @since       0.1
+         * @package BNS_Add_Widget
+         * @since   0.1
          *
-         * @uses        (global) $wp_version
+         * @uses    (global) $wp_version
          *
-         * @version     0.4
-         * @internal    Version 2.7 being used in reference to the `load_plugin_textdomain`
-         *
-         * Last revised November 14, 2011.
+         * @version 0.4
+         * @date    November 14, 2011.
+         * @internal Version 2.7 being used in reference to the `load_plugin_textdomain`
          */
         global $wp_version;
         $exit_message = 'BNS Add Widget requires WordPress version 2.7 or newer. <a href="http://codex.wordpress.org/Upgrading_WordPress">Please Update!</a>';
@@ -79,11 +81,12 @@ class BNS_Add_Widget {
          * @package:    BNS_Add_Widget
          * @since:      0.4
          *
-         * Note: Translation files are expected to be found in the plugin root folder / directory.
-         * `bns-aw` is being used in place of `bns-add-widget`
+         * @internal Translation files are expected to be found in the plugin
+         * root folder / directory.
+         * @internal `bns-aw` is being used in place of `bns-add-widget`
+         * @internal see designation in plugin header for Text Domain
          */
         load_plugin_textdomain( 'bns-aw' );
-        /** End: BNS Add Widget TextDomain */
 
         /** Enqueue Scripts and Styles */
         add_action( 'wp_enqueue_scripts', array( $this, 'BNSAW_Scripts_and_Styles' ) );
@@ -95,7 +98,7 @@ class BNS_Add_Widget {
         add_action('wp_footer', array( $this, 'BNS_Add_Widget_Hook') );
 
     }
-    /** End: Constructor */
+    /** End: Constructor ---------------------------------------------------- */
 
     /**
      * Enqueue Plugin Scripts and Styles
@@ -134,8 +137,7 @@ class BNS_Add_Widget {
      * @uses    register_sidebar
      *
      * @version 0.4
-     *
-     * Last revised November 14, 2011
+     * @date    November 14, 2011
      */
     function BNS_Add_Widget_Definition() {
         register_sidebar( array(
@@ -160,18 +162,17 @@ class BNS_Add_Widget {
      * @internal REQUIRES `wp_footer` action hook to be available
      *
      * @version 0.4
-     *
-     * Last revised November 14, 2011
+     * @date    November 14, 2011
      */
     function BNS_Add_Widget_Hook() { ?>
-    <div class="bnsaw-credit">
-        <?php if ( dynamic_sidebar( 'bns-add-widget' ) ) : else :
-        printf( __( 'You are using the %1$s plugin. Thank You!', 'bns-aw' ), '<a href="http://buynowshop.com/plugins/bns-add-widget/">BNS Add Widget</a>' );
-    endif; ?>
-    </div>
+        <div class="bnsaw-credit">
+            <?php if ( dynamic_sidebar( 'bns-add-widget' ) ) : else :
+                printf( __( 'You are using the %1$s plugin. Thank You!', 'bns-aw' ), '<a href="http://buynowshop.com/plugins/bns-add-widget/">BNS Add Widget</a>' );
+            endif; ?>
+        </div>
     <?php }
 
 }
 
-
+/** @var $bns_add_widget - new instance of the class */
 $bns_add_widget = new BNS_Add_Widget();
