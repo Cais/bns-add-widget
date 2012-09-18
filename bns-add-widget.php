@@ -6,7 +6,7 @@ Description: Add a widget area to the footer of any theme.
 Version: 0.4.3
 Author: Edward Caissie
 Author URI: http://edwardcaissie.com/
-Textdomain: bns-aw
+Text Domain: bns-aw
 License: GNU General Public License v2
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 */
