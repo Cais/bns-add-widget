@@ -21,7 +21,7 @@ License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * @link        http://buynowshop.com/plugins/bns-add-widget/
  * @link        https://github.com/Cais/bns-add-widget/
  * @link        http://wordpress.org/extend/plugins/bns-add-widget/
- * @version     0.6.1
+ * @version     0.6.2
  * @author      Edward Caissie <edward.caissie@gmail.com>
  * @copyright   Copyright (c) 2010-2013, Edward Caissie
  *
