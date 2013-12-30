@@ -76,7 +76,7 @@ class BNS_Add_Widget {
 		 * @uses    (global) $wp_version
 		 *
 		 * @version          0.4
-		 * @date             November 14, 2011.
+		 * @date             November 14, 2011
 		 * @internal         Version 2.7 being used in reference to the textdomain
 		 */
 		global $wp_version;
