@@ -60,8 +60,8 @@ License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * @version        0.6.3
  * @date           December 2013
  *
- * @version	0.7
- * @date	April 25, 2014
+ * @version        0.7
+ * @date           April 25, 2014
  */
 class BNS_Add_Widget {
 	/**
