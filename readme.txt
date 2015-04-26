@@ -81,6 +81,7 @@ The plugin uses the register_sidebar() WordPress function; additional classes ar
 == Changelog ==
 = 0.8 =
 * Released April 2015
+* Added `bnsft_in_plugin_update_message` function
 * Updated copyright year
 * Cleaned up code to get rid of extraneous comments
 
