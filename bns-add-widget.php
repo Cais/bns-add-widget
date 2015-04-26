@@ -21,9 +21,9 @@ License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * @link           http://buynowshop.com/plugins/bns-add-widget/
  * @link           https://github.com/Cais/bns-add-widget/
  * @link           http://wordpress.org/extend/plugins/bns-add-widget/
- * @version        0.7
+ * @version        0.8
  * @author         Edward Caissie <edward.caissie@gmail.com>
- * @copyright      Copyright (c) 2010-2014, Edward Caissie
+ * @copyright      Copyright (c) 2010-2015, Edward Caissie
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License version 2, as published by the
@@ -44,49 +44,32 @@ License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  *
  * The license for this software can also likely be found here:
  * http://www.gnu.org/licenses/gpl-2.0.html
- *
- * @version        0.6
- * @date           November 26, 2012
- * Removed load_plugin_textdomain as redundant
- *
- * @version        0.6.1
- * @date           February 12, 2013
- * Documentation and comments
- *
- * @version        0.6.2
- * @date           May 6, 2013
- * Version number compatibility updates
- *
- * @version        0.6.3
- * @date           December 2013
- *
- * @version        0.7
- * @date           April 25, 2014
  */
 class BNS_Add_Widget {
+
 	/**
 	 * Constructor
 	 * This is where the go-go juice is squeezed out of the code
 	 */
 	function __construct() {
+
 		/**
 		 * Check installed WordPress version for compatibility
 		 *
-		 * @package          BNS_Add_Widget
-		 * @since            0.1
+		 * @package     BNS_Add_Widget
+		 * @since       0.1
 		 *
-		 * @uses    (global) $wp_version
+		 * @uses        (global) $wp_version
 		 *
-		 * @version          0.4
-		 * @date             November 14, 2011
-		 * @internal         Version 2.7 being used in reference to the textdomain
+		 * @version     0.4
+		 * @date        November 14, 2011
+		 * @internal    Version 2.7 being used in reference to the textdomain
 		 */
 		global $wp_version;
 		$exit_message = 'BNS Add Widget requires WordPress version 2.7 or newer. <a href="http://codex.wordpress.org/Upgrading_WordPress">Please Update!</a>';
 		if ( version_compare( $wp_version, "2.7", "<" ) ) {
 			exit ( $exit_message );
 		}
-		/** End if - version compare */
 
 		/** Enqueue Scripts and Styles */
 		add_action(
@@ -104,7 +87,6 @@ class BNS_Add_Widget {
 
 	}
 
-	/** End: Constructor ---------------------------------------------------- */
 
 	/**
 	 * Enqueue Plugin Scripts and Styles
@@ -124,8 +106,10 @@ class BNS_Add_Widget {
 	 * Set versions to dynamically match the plugin version
 	 */
 	function BNSAW_Scripts_and_Styles() {
+
 		require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 		$bns_aw_data = get_plugin_data( __FILE__ );
+
 		/** Enqueue Scripts */
 		/** Enqueue Style Sheets */
 		wp_enqueue_style( 'BNSAW-Style', plugin_dir_url( __FILE__ ) . 'bnsaw-style.css', array(), $bns_aw_data['Version'], 'screen' );
@@ -133,10 +117,8 @@ class BNS_Add_Widget {
 			/** Only enqueue if available */
 			wp_enqueue_style( 'BNSAW-Custom-Style', plugin_dir_url( __FILE__ ) . 'bnsaw-custom-style.css', array(), $bns_aw_data['Version'], 'screen' );
 		}
-		/** End if - is readable */
-	}
 
-	/** End function - scripts and styles */
+	}
 
 
 	/**
@@ -152,6 +134,7 @@ class BNS_Add_Widget {
 	 * @date    November 14, 2011
 	 */
 	function BNS_Add_Widget_Definition() {
+
 		register_sidebar(
 			array(
 				'name'          => __( 'BNS Add Widget', 'bns-aw' ),
@@ -163,9 +146,8 @@ class BNS_Add_Widget {
 				'after_title'   => '</h2>',
 			)
 		);
-	}
 
-	/** End function - add widget definition */
+	}
 
 
 	/**
@@ -187,8 +169,8 @@ class BNS_Add_Widget {
 	 * @date     February 13, 2013
 	 * Fixed misread token issue
 	 */
-	function BNS_Add_Widget_Hook() {
-		?>
+	function BNS_Add_Widget_Hook() { ?>
+
 		<div class="bnsaw-credit">
 			<?php
 			if ( ! dynamic_sidebar( 'bns-add-widget' ) ) {
@@ -196,13 +178,10 @@ class BNS_Add_Widget {
 			} /** End if - not dynamic widget */
 			?>
 		</div>
-	<?php
-	}
-	/** End function - add widget hook */
+
+	<?php }
 
 }
-
-/** End class */
 
 
 /** @var $bns_add_widget - new instance of the class */
