@@ -6,7 +6,7 @@ Description: Add a widget area to the footer of any theme.
 Version: 0.8
 Author: Edward Caissie
 Author URI: http://edwardcaissie.com/
-Text Domain: bns-aw
+Text Domain: bns-add-widget
 License: GNU General Public License v2
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 */
@@ -20,7 +20,7 @@ License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * @package        BNS_Add_Widget
  * @link           http://buynowshop.com/plugins/bns-add-widget/
  * @link           https://github.com/Cais/bns-add-widget/
- * @link           http://wordpress.org/extend/plugins/bns-add-widget/
+ * @link           https://wordpress.org/plugins/bns-add-widget/
  * @version        0.8
  * @author         Edward Caissie <edward.caissie@gmail.com>
  * @copyright      Copyright (c) 2010-2015, Edward Caissie
@@ -60,13 +60,20 @@ class BNS_Add_Widget {
 		 * @since       0.1
 		 *
 		 * @uses        (global) $wp_version
+		 * @uses        __
 		 *
 		 * @version     0.4
 		 * @date        November 14, 2011
 		 * @internal    Version 2.7 being used in reference to the textdomain
+		 *
+		 * @version     0.8
+		 * @date        April 25, 2015
+		 * Corrected `$exit_message` to be i18n compatible
 		 */
 		global $wp_version;
-		$exit_message = 'BNS Add Widget requires WordPress version 2.7 or newer. <a href="http://codex.wordpress.org/Upgrading_WordPress">Please Update!</a>';
+		$exit_message = __( 'BNS Add Widget requires WordPress version 2.7 or newer.', 'bns-add-widget' );
+		$exit_message .= '<br /> ';
+		$exit_message .= sprintf( '<a href="http://codex.wordpress.org/Upgrading_WordPress">%1$s</a>', __( 'Please Update!', 'bns-add-widget' ) );
 		if ( version_compare( $wp_version, "2.7", "<" ) ) {
 			exit ( $exit_message );
 		}
@@ -137,9 +144,9 @@ class BNS_Add_Widget {
 
 		register_sidebar(
 			array(
-				'name'          => __( 'BNS Add Widget', 'bns-aw' ),
+				'name'          => __( 'BNS Add Widget', 'bns-add-widget' ),
 				'id'            => 'bns-add-widget',
-				'description'   => __( 'This widget area will generally be found at the bottom of the page in the theme footer area.', 'bns-aw' ),
+				'description'   => __( 'This widget area will generally be found at the bottom of the page in the theme footer area.', 'bns-add-widget' ),
 				'before_widget' => '<div class="bns-add-widget"><div id="%1$s" class="widget %2$s">',
 				'after_widget'  => '</div><!-- #%1$s .widget .%2$s --></div><!-- .bns-add-widget -->',
 				'before_title'  => '<h2 class="bns-add-widget-title">',
@@ -174,7 +181,7 @@ class BNS_Add_Widget {
 		<div class="bnsaw-credit">
 			<?php
 			if ( ! dynamic_sidebar( 'bns-add-widget' ) ) {
-				echo apply_filters( 'bnsaw_credit_text', sprintf( '<span class="bnsaw-credit-text">%1$s</span>', sprintf( __( 'You are using the %1$s plugin. Thank You!', 'bns-aw' ), '<a href="http://buynowshop.com/plugins/bns-add-widget/">BNS Add Widget</a>' ) ) );
+				echo apply_filters( 'bnsaw_credit_text', sprintf( '<span class="bnsaw-credit-text">%1$s</span>', sprintf( __( 'You are using the %1$s plugin. Thank You!', 'bns-add-widget' ), '<a href="http://buynowshop.com/plugins/bns-add-widget/">BNS Add Widget</a>' ) ) );
 			} /** End if - not dynamic widget */
 			?>
 		</div>
