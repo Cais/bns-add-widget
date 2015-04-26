@@ -61,6 +61,7 @@ class BNS_Add_Widget {
 		 *
 		 * @uses        (global) $wp_version
 		 * @uses        __
+		 * @uses        load_plugin_textdomain
 		 *
 		 * @version     0.4
 		 * @date        November 14, 2011
@@ -77,6 +78,8 @@ class BNS_Add_Widget {
 		if ( version_compare( $wp_version, "2.7", "<" ) ) {
 			exit ( $exit_message );
 		}
+
+		load_plugin_textdomain( 'bns-add-widget' );
 
 		/** Enqueue Scripts and Styles */
 		add_action(
