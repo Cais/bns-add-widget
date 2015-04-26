@@ -1,7 +1,7 @@
 === BNS Add Widget ===
 Contributors: cais
 Donate link: http://buynowshop.com
-Tags: widget, footer, admin, plugin-only
+Tags: widget, footer, admin, plugin-only, translation-ready
 Requires at least: 2.7
 Tested up to: 4.2
 Stable tag: 0.8
