@@ -3,8 +3,8 @@ Contributors: cais
 Donate link: http://buynowshop.com
 Tags: widget, footer, admin, plugin-only, translation-ready
 Requires at least: 2.7
-Tested up to: 4.2
-Stable tag: 0.8
+Tested up to: 4.4
+Stable tag: 0.9
 License: GNU General Public License v2
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
@@ -79,6 +79,12 @@ The plugin uses the register_sidebar() WordPress function; additional classes ar
 * Please stay current with your WordPress installation, your active theme, and your plugins.
 
 == Changelog ==
+= 0.9 =
+* Released November 2015
+* Change to singleton format
+* Moved `update_message` into class
+* Removed `bns-add-widget.pot` file in favor of http://translate.wordpress.org/
+
 = 0.8 =
 * Released April 2015
 * Added `bnsft_in_plugin_update_message` function
