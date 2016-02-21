@@ -3,7 +3,7 @@
 Plugin Name: BNS Add Widget
 Plugin URI: http://buynowshop.com/plugins/bns-add-widget
 Description: Add a widget area to the footer of any theme.
-Version: 0.9
+Version: 1.0
 Author: Edward Caissie
 Author URI: http://edwardcaissie.com/
 Text Domain: bns-add-widget
@@ -21,9 +21,9 @@ License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * @link           http://buynowshop.com/plugins/bns-add-widget/
  * @link           https://github.com/Cais/bns-add-widget/
  * @link           https://wordpress.org/plugins/bns-add-widget/
- * @version        0.9
+ * @version        1.0
  * @author         Edward Caissie <edward.caissie@gmail.com>
- * @copyright      Copyright (c) 2010-2015, Edward Caissie
+ * @copyright      Copyright (c) 2010-2016, Edward Caissie
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License version 2, as published by the
@@ -74,40 +74,30 @@ class BNS_Add_Widget {
 	/**
 	 * Constructor
 	 * This is where the go-go juice is squeezed out of the code
+	 *
+	 * @package    BNS_Add_Widget
+	 *
+	 * @uses       WP_CONTENT_DIR
+	 * @uses       add_action
+	 * @uses       add_filter
+	 * @uses       content_url
+	 * @uses       load_plugin_textdomain
+	 * @uses       plugin_basename
+	 * @uses       register_activation_hook
 	 */
 	function __construct() {
 
-		/**
-		 * Check installed WordPress version for compatibility
-		 *
-		 * @package     BNS_Add_Widget
-		 * @since       0.1
-		 *
-		 * @uses        (global) $wp_version
-		 * @uses        __
-		 * @uses        load_plugin_textdomain
-		 *
-		 * @version     0.4
-		 * @date        November 14, 2011
-		 * @internal    Version 2.7 being used in reference to the textdomain
-		 *
-		 * @version     0.8
-		 * @date        April 25, 2015
-		 * Corrected `$exit_message` to be i18n compatible
-		 *
-		 * @version     0.9
-		 * @date        November 20, 2015
-		 * Moved `update_message` into class
-		 */
-		global $wp_version;
-		$exit_message = __( 'BNS Add Widget requires WordPress version 2.7 or newer.', 'bns-add-widget' );
-		$exit_message .= '<br /> ';
-		$exit_message .= sprintf( '<a href="http://codex.wordpress.org/Upgrading_WordPress">%1$s</a>', __( 'Please Update!', 'bns-add-widget' ) );
-		if ( version_compare( $wp_version, "2.7", "<" ) ) {
-			exit ( $exit_message );
-		}
+		register_activation_hook( __FILE__, array( $this, 'install' ) );
 
 		load_plugin_textdomain( 'bns-add-widget' );
+
+		/** Define location for BNS plugin customizations */
+		if ( ! defined( 'BNS_CUSTOM_PATH' ) ) {
+			define( 'BNS_CUSTOM_PATH', WP_CONTENT_DIR . '/bns-customs/' );
+		}
+		if ( ! defined( 'BNS_CUSTOM_URL' ) ) {
+			define( 'BNS_CUSTOM_URL', content_url( '/bns-customs/' ) );
+		}
 
 		/** Enqueue Scripts and Styles */
 		add_action(
@@ -123,11 +113,47 @@ class BNS_Add_Widget {
 		/** Hook into footer */
 		add_action( 'wp_footer', array( $this, 'BNS_Add_Widget_Hook' ) );
 
+		/** Add Plugin Row Meta details */
+		add_filter( 'plugin_row_meta', array( $this, 'plugin_meta' ), 10, 2 );
+
 		/** Add plugin update message */
-		add_action( 'in_plugin_update_message-' . plugin_basename( __FILE__ ), array(
-			$this,
-			'update_message'
-		) );
+		add_action( 'in_plugin_update_message-' . plugin_basename( __FILE__ ), array( $this, 'update_message' ) );
+
+	}
+
+
+	/**
+	 * Check installed WordPress version for compatibility
+	 *
+	 * @package     BNS_Add_Widget
+	 * @since       1.0
+	 * @date        February 21, 2016
+	 *
+	 * @uses        BNS_Add_Widget::plugin_data
+	 * @uses        __
+	 * @uses        apply_filters
+	 * @uses        deactivate_plugins
+	 * @uses        get_bloginfo
+	 */
+	function install() {
+
+		/** @var float $version_required - see "Requires at least" from `readme.txt` */
+		$version_required = apply_filters( 'bns_add_widget_requires_at_least_version', '2.7' );
+
+		$plugin_data = $this->plugin_data();
+
+		/** @var string $exit_message - build an explanation message */
+		$exit_message = sprintf( __( '%1$s requires WordPress version %2$s or later.', 'bns-add-widget' ), $plugin_data['Name'], $version_required );
+		$exit_message .= '<br />';
+		$exit_message .= sprintf( '<a href="http://codex.wordpress.org/Upgrading_WordPress" target="_blank">%1$s</a>', __( 'Please Update!', 'bns-add-widget' ) );
+
+		/** Conditional check of current WordPress version */
+		if ( version_compare( get_bloginfo( 'version' ), floatval( $version_required ), '<' ) ) {
+
+			deactivate_plugins( basename( __FILE__ ) );
+			exit( $exit_message );
+
+		}
 
 	}
 
@@ -137,29 +163,33 @@ class BNS_Add_Widget {
 	 * Adds plugin stylesheet and allows for custom stylesheet to be added by
 	 * end-user.
 	 *
-	 * @package BNS_Add_Widget
-	 * @since   0.4
+	 * @package    BNS_Add_Widget
+	 * @since      0.4
 	 *
-	 * @uses    get_plugin_data
-	 * @uses    plugin_dir_path
-	 * @uses    plugin_dir_url
-	 * @uses    wp_enqueue_style
+	 * @uses       BNS_Add_Widget::plugin_data
+	 * @uses       BNS_CUSTOM_PATH
+	 * @uses       BNS_CUSTOM_URL
+	 * @uses       plugin_dir_url
+	 * @uses       wp_enqueue_style
 	 *
-	 * @version 0.4.3
-	 * @date    September 12, 2012
+	 * @version    0.4.3
+	 * @date       September 12, 2012
 	 * Set versions to dynamically match the plugin version
+	 *
+	 * @version    1.0
+	 * @date       February 21, 2016
+	 * Updated location of custom CSS for plugin
 	 */
 	function scripts_and_styles() {
 
-		require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-		$bns_aw_data = get_plugin_data( __FILE__ );
+		$plugin_data = $this->plugin_data();
 
-		/** Enqueue Scripts */
-		/** Enqueue Style Sheets */
-		wp_enqueue_style( 'BNSAW-Style', plugin_dir_url( __FILE__ ) . 'bnsaw-style.css', array(), $bns_aw_data['Version'], 'screen' );
-		if ( is_readable( plugin_dir_path( __FILE__ ) . 'bnsaw-custom-style.css' ) ) {
-			/** Only enqueue if available */
-			wp_enqueue_style( 'BNSAW-Custom-Style', plugin_dir_url( __FILE__ ) . 'bnsaw-custom-style.css', array(), $bns_aw_data['Version'], 'screen' );
+		/** Styles */
+		wp_enqueue_style( 'BNSAW-Style', plugin_dir_url( __FILE__ ) . 'bnsaw-style.css', array(), $plugin_data['Version'], 'screen' );
+
+		/** For custom stylesheets in the /wp-content/bns-custom/ folder */
+		if ( is_readable( BNS_CUSTOM_PATH . 'bnsaw-custom-style.css' ) ) {
+			wp_enqueue_style( 'BNSAW-Custom-Style', BNS_CUSTOM_URL . 'bnsaw-custom-style.css', array(), $plugin_data['Version'], 'screen' );
 		}
 
 	}
@@ -338,6 +368,70 @@ class BNS_Add_Widget {
 		/** End if - transient check */
 
 		echo $upgrade_notice;
+
+	}
+
+
+	/**
+	 * Plugin Data
+	 *
+	 * Returns the plugin header data as an array
+	 *
+	 * @package    BNS_Add_widget
+	 * @since      1.0
+	 * @date       February 21, 2016
+	 *
+	 * @uses       get_plugin_data
+	 *
+	 * @return array
+	 */
+	function plugin_data() {
+
+		/** Call the wp-admin plugin code */
+		require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
+		/** @var $plugin_data - holds the plugin header data */
+		$plugin_data = get_plugin_data( __FILE__ );
+
+		return $plugin_data;
+
+	}
+
+
+	/**
+	 * Plugin Meta
+	 *
+	 * Adds additional links to plugin meta links
+	 *
+	 * @package    BNS_Add_Widget
+	 * @since      1.0
+	 * @date       February 21, 2016
+	 *
+	 * @uses       __
+	 * @uses       plugin_basename
+	 *
+	 * @param   $links
+	 * @param   $file
+	 *
+	 * @return  array $links
+	 */
+	function plugin_meta( $links, $file ) {
+
+		$plugin_file = plugin_basename( __FILE__ );
+
+		if ( $file == $plugin_file ) {
+
+			$links = array_merge(
+				$links, array(
+					'fork_link'      => '<a href="https://github.com/Cais/BNS-Add-Widget">' . __( 'Fork on GitHub', 'bns-add-widget' ) . '</a>',
+					'wish_link'      => '<a href="http://www.amazon.ca/registry/wishlist/2NNNE1PAQIRUL">' . __( 'Grant a wish?', 'bns-add-widget' ) . '</a>',
+					'support_link'   => '<a href="http://wordpress.org/support/plugin/bns-add-widget">' . __( 'WordPress support forums', 'bns-add-widget' ) . '</a>',
+					'translate_link' => '<a href="https://translate.wordpress.org/projects/wp-plugins/bns-add-widget">' . __( 'Add your translation', 'bns-add-widget' ) . '</a>'
+				)
+			);
+
+		}
+
+		return $links;
 
 	}
 

@@ -3,8 +3,8 @@ Contributors: cais
 Donate link: http://buynowshop.com
 Tags: widget, footer, admin, plugin-only, translation-ready
 Requires at least: 2.7
-Tested up to: 4.4
-Stable tag: 0.9
+Tested up to: 4.5
+Stable tag: 1.0
 License: GNU General Public License v2
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
@@ -55,7 +55,7 @@ The plugin uses the register_sidebar() WordPress function; additional classes ar
 1. The new blank widget area
 
 == Other Notes ==
-* Copyright 2010-2015  Edward Caissie  (email : edward.caissie@gmail.com)
+* Copyright 2010-2016  Edward Caissie  (email : edward.caissie@gmail.com)
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License version 2,
@@ -79,6 +79,13 @@ The plugin uses the register_sidebar() WordPress function; additional classes ar
 * Please stay current with your WordPress installation, your active theme, and your plugins.
 
 == Changelog ==
+= 1.0 =
+* Released February 2016
+* Added links to plugin meta row for more community involvement
+* Added some helper methods
+* Updated location of custom CSS for plugin
+* Updated copyright years in all files
+
 = 0.9 =
 * Released November 2015
 * Change to singleton format
