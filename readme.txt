@@ -83,6 +83,7 @@ The plugin uses the register_sidebar() WordPress function; additional classes ar
 * Released February 2016
 * Added links to plugin meta row for more community involvement
 * Added some helper methods
+* Added `.pot` and `en_CA` translation files
 * Updated location of custom CSS for plugin
 * Updated copyright years in all files
 
