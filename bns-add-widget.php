@@ -272,6 +272,7 @@ class BNS_Add_Widget {
 	 */
 	function update_message( $args ) {
 
+		/** @noinspection PhpIncludeInspection */
 		require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
 		$bnsaw_data = get_plugin_data( __FILE__ );
 
@@ -388,6 +389,7 @@ class BNS_Add_Widget {
 	function plugin_data() {
 
 		/** Call the wp-admin plugin code */
+		/** @noinspection PhpIncludeInspection */
 		require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
 		/** @var $plugin_data - holds the plugin header data */
 		$plugin_data = get_plugin_data( __FILE__ );
